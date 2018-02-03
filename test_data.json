@@ -1,0 +1,23 @@
+[
+    {
+        "name" : "League of Legends",
+        "platforms" : ["PC"],
+        "image_url" : "implement.me/please.jpg",
+        "data_owner" : "qvolver.team@gmail.com",
+        "events" : {}
+    },
+    {
+        "name" : "Puzzle and Dragons",
+        "platforms" : ["Mobile"],
+        "image_url" : "implement.me/please.jpg",
+        "data_owner" : "qvolver.team@gmail.com",
+        "events" : {}
+    },
+    {
+        "name" : "Dragon Ball FighterZ",
+        "platforms" : ["PC", "PS4", "XBOX_ONE"],
+        "image_url" : "implement.me/please.jpg",
+        "data_owner" : "qvolver.team@gmail.com",
+        "events" : {}
+    }
+]
