@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import boto3
 
+# if we import os we can use os.environ('ENDPOINT_URL') to access dynamoDB
 dynamodb = boto3.resource('dynamodb', region_name='us-west-1', endpoint_url="http://localhost:8000")
 
 
