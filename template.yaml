@@ -10,8 +10,8 @@ Resources:
         Name: name
         Type: String
       ProvisionedThroughput:
-        ReadCapacityUnits: 5
-        WriteCapacityUnits: 5
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
   GameLambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
