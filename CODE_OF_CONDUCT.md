@@ -15,3 +15,6 @@ Project admins have the right and responsibility to do whatever we want.
 ## Enforcement
 
 We will come beat you with a stick if you break da rules
+
+
+MOST IMPORTANTLY NO WORKING WHEN I DON'T WANT TO
