@@ -96,8 +96,14 @@ def update_game(game):
         Key={
             'name': game['name']
         },
-        UpdateExpression="set display_name = db_display_name, platforms=db_platforms, image_url=db_image_url, data_owner=db_data_owner, events=db_events",
-        ExpressionAttributeValues=db_item,
+        UpdateExpression="set display_name = :d, platforms = :p, image_url= :i, data_owner= :o, events= :e",
+        ExpressionAttributeValues= {
+            ':d': db_item['display_name'],
+            ':p': db_item['platforms'],
+            ':i': db_item['image_url'],
+            ':o': db_item['data_owner'],
+            ':e': db_item['events'],
+        },
     ReturnValues="UPDATED_NEW"
     )
     return response['Attributes']
