@@ -1,3 +1,4 @@
 qvolver_db
 .vscode
 __pycache__
+shared-local-instance.db

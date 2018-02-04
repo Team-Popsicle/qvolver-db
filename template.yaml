@@ -16,14 +16,36 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: lib/
-      Handler: games.lambda_handler
+      Handler: games_lambda_function.lambda_handler
       Runtime: python3.6
-      Policies:
-        DynamoDBCrudPolicy:
-          TableName: !Ref GamesTable
+      Policies: AmazonDynamoDBFullAccess
+      Timeout: 5
+      Environment:
+        Variables:
+          DYNAMODB_URL: http://dynamodb:8000
       Events:
-        ListGames:
+        GetGames:
           Type: Api
           Properties:
             Path: /game
             Method: get
+        AddGames:
+          Type: Api
+          Properties:
+            Path: /game
+            Method: post
+        GetGame:
+          Type: Api
+          Properties:
+            Path: /game/{id}
+            Method: get
+        UpdateGame:
+          Type: Api
+          Properties:
+            Path: /game/{id}
+            Method: patch
+        DeleteGame:
+          Type: Api
+          Properties:
+            Path: /game/{id}
+            Method: delete

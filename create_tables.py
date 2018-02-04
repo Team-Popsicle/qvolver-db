@@ -2,7 +2,8 @@
 import boto3
 
 # if we import os we can use os.environ('ENDPOINT_URL') to access dynamoDB
-dynamodb = boto3.resource('dynamodb', region_name='us-west-1', endpoint_url="http://localhost:8000")
+# this endpoint url may need to change based on your dev setup
+dynamodb = boto3.resource('dynamodb', region_name='us-west-1', endpoint_url="http://192.168.99.100:8000")
 
 
 table = dynamodb.create_table(
@@ -20,8 +21,8 @@ table = dynamodb.create_table(
         }
     ],
     ProvisionedThroughput={
-        'ReadCapacityUnits': 10,
-        'WriteCapacityUnits': 10
+        'ReadCapacityUnits': 1,
+        'WriteCapacityUnits': 1
     }
 )
 
