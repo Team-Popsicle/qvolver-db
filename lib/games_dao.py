@@ -26,10 +26,16 @@ def get_game_by_id(id):
     return response['Item']
 
 def delete_game_by_id(id):
-    return 'true or false depending on success'
+    response = table.delete_item(
+        Key={
+            'name': id
+        },
+        ReturnValues = 'ALL_OLD'
+    )
+    return id == response['Attributes']['name']
 
 def create_game(game):
-    response = table.put_item(
+    table.put_item(
         Item={
             'name': game['name'],
             'display_name': game['display_name'],
@@ -37,13 +43,12 @@ def create_game(game):
             'image_url': game['image_url'],
             'data_owner': game['data_owner'],
             'events': game['events']
-        },
-        ReturnValues = 'ALL_NEW'
+        }
     )
-    return response
+    return game
 
 def update_game(game):
-    response = table.put_item(
+    response = table.update_item(
         Item={
             'name': game['name'],
             'display_name': game['display_name'],
@@ -54,5 +59,4 @@ def update_game(game):
         },
         ReturnValues = 'ALL_NEW'
     )
-
-    return response
+    return response['Attributes']
