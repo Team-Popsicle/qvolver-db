@@ -11,14 +11,14 @@ def lambda_handler(event, context):
 
     if operation == 'GET':
         if game_id is not None:
-            body_load = get_game_by_id(game_id)
+            body_load = games_dao.get_game_by_id(game_id)
         else:
-            body_load = get_all_games()
+            body_load = games_dao.get_all_games()
         call_status = 200
         
     elif operation == 'DELETE':
         if game_id is not None:
-            delete_status = delete_game_by_id(game_id)
+            delete_status = games_dao.delete_game_by_id(game_id)
             if delete_status:
                 body_load = 'Successful Deletion'
             else:
@@ -28,14 +28,14 @@ def lambda_handler(event, context):
         call_status = 200
     elif operation == 'POST':
         if event['body'] is not None:
-            body_load = create_game(event['body'])
+            body_load = games_dao.create_game(event['body'])
             call_status = 200
         else:
             call_status = 400
             body_load = 'Are you a floating skull? You need a body fool!'
     elif operation == 'PATCH':
         if event['body'] is not None:
-            body_load = update_game(event['body'])
+            body_load = games_dao.update_game(event['body'])
             call_status = 200
         else:
             call_status = 400

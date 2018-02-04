@@ -18,7 +18,12 @@ def get_all_games():
     return games
 
 def get_game_by_id(id):
-    return 'returns a game dict'
+    response = table.get_item(
+        Key={
+            'name': id
+        }
+    )
+    return response['Item']
 
 def delete_game_by_id(id):
     return 'true or false depending on success'
