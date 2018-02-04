@@ -2,7 +2,7 @@ import boto3
 import json
 import os
 
-dynamodb = boto3.resource('dynamodb', region_name='us-west-1', endpoint_url="http://localhost:8000")
+dynamodb = boto3.resource('dynamodb', region_name='us-west-1', endpoint_url=os.environ("DYNAMODB_URL"))
 table = dynamodb.Table('Games')
 
 def get_all_games():
