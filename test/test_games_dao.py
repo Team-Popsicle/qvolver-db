@@ -1,6 +1,8 @@
 from context import lib
 from lib import games_dao as games_dao
+import os
 
+print(os.getenv('DYNAMODB_URL'))
 game = {
     'name': 'Test-Game',
     'display_name': 'Test Game',
