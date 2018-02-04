@@ -1,4 +1,5 @@
 import games_dao
+import ast
 
 def lambda_handler(event, context):
     body_load = ''
@@ -11,10 +12,16 @@ def lambda_handler(event, context):
 
     if operation == 'GET':
         if game_id is not None:
-            body_load = games_dao.get_game_by_id(game_id)
+            got_game = games_dao.get_game_by_id(game_id)
+            if got_game == 'Not Found':
+                call_status = 404
+                body_load = 'Game does not exist, play real games please!'
+            else:
+                call_status = 200
+                body_load = got_game
         else:
             body_load = games_dao.get_all_games()
-        call_status = 200
+            call_status = 200
         
     elif operation == 'DELETE':
         if game_id is not None:
@@ -28,7 +35,8 @@ def lambda_handler(event, context):
         call_status = 200
     elif operation == 'POST':
         if event['body'] is not None:
-            body_load = games_dao.create_game(event['body'])
+            game_dic = ast.literal_eval(event['body'])
+            body_load = games_dao.create_game(game_dic)
             call_status = 200
         else:
             call_status = 400
@@ -46,9 +54,10 @@ def lambda_handler(event, context):
         
     return_object = {
         "statusCode": call_status,
-        "body": body_load
+        "body": str(body_load)
     }
 
     return return_object
+
 
 
