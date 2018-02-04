@@ -35,7 +35,11 @@ def delete_game_by_id(id):
         },
         ReturnValues = 'ALL_OLD'
     )
-    return id == response['Attributes']['name']
+    if 'Attributes' in response and 'name' in response['Attributes']:
+        return True
+    else:
+        return False
+    #return id == response['Attributes']['name']
 
 def create_game(game):
     db_item={
@@ -67,16 +71,34 @@ def create_game(game):
     return game
 
 def update_game(game):
+    db_item={
+        'display_name': 'None',
+        'platforms': 'None',
+        'image_url': 'None',
+        'data_owner': 'None',
+        'events': 'None'
+    }
+    if 'name' in game:
+        if 'display_name' in game:
+            db_item['display_name'] = game['display_name']
+        if 'platforms' in game:
+            db_item['platforms'] = game['platforms']
+        if 'image_url' in game:
+            db_item['image_url'] = game['image_url']
+        if 'data_owner' in game:
+            db_item['data_owner'] = game['data_owner']
+        if 'events' in game:
+            db_item['events'] = game['events']
+    else:
+        return None
+        
     response = table.update_item(
-        Item={
-            'name': game['name'],
-            'display_name': game['display_name'],
-            'platforms': game['platforms'],
-            'image_url': game['image_url'],
-            'data_owner': game['data_owner'],
-            'events': game['events']
+        Key={
+            'name': game['name']
         },
-        ReturnValues = 'ALL_NEW'
+        UpdateExpression="set display_name = display_name, platforms=platforms, image_url=image_url, data_owner=data_owner, events=events",
+        ExpressionAttributeValues=db_item,
+    ReturnValues="UPDATED_NEW"
     )
     return response['Attributes']
 
