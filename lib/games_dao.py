@@ -72,23 +72,23 @@ def create_game(game):
 
 def update_game(game):
     db_item={
-        'db_display_name': 'None',
-        'db_platforms': 'None',
-        'db_image_url': 'None',
-        'db_data_owner': 'None',
-        'db_events': 'None'
+        'display_name': 'None',
+        'platforms': 'None',
+        'image_url': 'None',
+        'data_owner': 'None',
+        'events': 'None'
     }
     if 'name' in game:
         if 'display_name' in game:
-            db_item['db_display_name'] = game['display_name']
+            db_item['display_name'] = game['display_name']
         if 'platforms' in game:
-            db_item['db_platforms'] = game['platforms']
+            db_item['platforms'] = game['platforms']
         if 'image_url' in game:
-            db_item['db_image_url'] = game['image_url']
+            db_item['image_url'] = game['image_url']
         if 'data_owner' in game:
-            db_item['db_data_owner'] = game['data_owner']
+            db_item['data_owner'] = game['data_owner']
         if 'events' in game:
-            db_item['db_events'] = game['events']
+            db_item['events'] = game['events']
     else:
         return None
         
@@ -96,8 +96,14 @@ def update_game(game):
         Key={
             'name': game['name']
         },
-        UpdateExpression="set display_name = db_display_name, platforms=db_platforms, image_url=db_image_url, data_owner=db_data_owner, events=db_events",
-        ExpressionAttributeValues=db_item,
+        UpdateExpression="set display_name = :d, platforms = :p, image_url= :i, data_owner= :o, events= :e",
+        ExpressionAttributeValues= {
+            ':d': db_item['display_name'],
+            ':p': db_item['platforms'],
+            ':i': db_item['image_url'],
+            ':o': db_item['data_owner'],
+            ':e': db_item['events'],
+        },
     ReturnValues="UPDATED_NEW"
     )
     return response['Attributes']

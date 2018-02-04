@@ -1,5 +1,5 @@
 import games_dao
-import ast
+import json
 
 def lambda_handler(event, context):
     body_load = ''
@@ -35,7 +35,7 @@ def lambda_handler(event, context):
         call_status = 200
     elif operation == 'POST':
         if event['body'] is not None:
-            game_dic = ast.literal_eval(event['body'])
+            game_dic = json.loads(event['body'])
             body_load = games_dao.create_game(game_dic)
             call_status = 200
         else:
@@ -43,7 +43,8 @@ def lambda_handler(event, context):
             body_load = 'Are you a floating skull? You need a body fool!'
     elif operation == 'PATCH':
         if event['body'] is not None:
-            body_load = games_dao.update_game(event['body'])
+            game_dic = json.loads(event['body'])
+            body_load = games_dao.update_game(game_dic)
             call_status = 200
         else:
             call_status = 400
