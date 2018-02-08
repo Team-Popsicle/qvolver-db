@@ -1,4 +1,7 @@
-qvolver_db
-.vscode
 __pycache__
+.chalice/deployments/
+.venv
+.vscode
 shared-local-instance.db
+qvolver_db
+qvolver_virtualenv
